@@ -67,6 +67,10 @@ $theNotes       = get_post_meta($post_id,'notes',true);
 					<dt>Environment:</dt>
 					<dd><?php echo $theEnvironment; ?></dd>
 					<?php }
+					if(!empty($theHealth)) { ?>
+					<dt>Health:</dt>
+					<dd><?php echo $theHealth; ?></dd>
+					<?php } 
 					if(!empty($theDamage)) { ?>
 					<dt>Damage:</dt>
 					<dd><?php echo $theDamage; ?></dd>

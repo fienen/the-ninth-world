@@ -288,6 +288,7 @@ p a{text-decoration:underline;}
 	font-size:1rem;
 	font-weight:bold;
   }
+.embed-youtube {margin-bottom:1.25rem;}
 .entry-content ol, .entry-content ul {margin-left:3rem;}
 .entry-content>p:first-child {
 	font-size:1.387rem;
@@ -569,12 +570,20 @@ p a{text-decoration:underline;}
 }
 
 @media only print {
-  body{margin:0 3em 2em;}
+  body{margin:0 0 0 2em;}
   footer,footer section {border:none;font-size:.5em;line-height:1.333em;width:100%;}
     footer h3 {border-bottom:1px solid #000;text-align:center;}
   h1.entry-title {padding-top:0;}
-  header a[href]:after,figure a:after,figure.locationMap a:after,#byline a:after { content: ""; }
-  footer>div.row>div:first-child,.sharedaddy,#comments,#user-tools {display:none;}
+  footer a[href]:after, header a[href]:after,figure a:after,figure.locationMap a:after,#byline a:after { content: ""; }
+  footer>div.row>div:first-child,.sharedaddy,#comments,#main-nav,#user-tools,.meta-tags {display:none;}
+  span.has-tip:after {content: " (" attr(title) ")";}
+  footer h3 {font-size:.75rem;}
+  footer p {font-size:.666rem;margin-bottom:0;text-align:center;}
+  .detail-list {overflow:initial;}
+    .detail-list dd{margin-left:2rem;}
+    .detail-list dt{float:none;text-align:left;width:100%;}
+  .gm-intrusion.right {float:none;clear:both;padding-bottom:0;width:100%;}
   .intrusion-block{width:100%;}
   .location-map,.encounter-image,.main-image.intrusion-block{float:none;}
+  .row{max-width:100%;}
 }

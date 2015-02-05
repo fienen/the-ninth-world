@@ -64,7 +64,7 @@ function set_html_content_type() {
 function submission_alert( $post ) {
    $contacts = 'fienen@gmail.com';
    add_filter( 'wp_mail_content_type', 'set_html_content_type' );
-   wp_mail( $contacts , "[The Ninth World] Content Submitted", 'New content has been submitted to the site.<dl><dt><strong>Title:</strong></dt><dd>'.$post->post_title.'</dd><dt><strong>Type:</strong></dt><dd>'.$post->post_type.'</dd><dt><strong>Submitted By:</strong></dt><dd>'.get_the_author_meta( 'display_name', $post->post_author ).'</dd><dt><strong>Saved At:</strong></dt><dd>'.$post->post_date.'</dd></dl>' );
+   wp_mail( $contacts , "[The Ninth World] Content Submitted", 'New content has been submitted to the site.<dl><dt><strong>Title:</strong></dt><dd>'.$post->post_title.'</dd><dt><strong>Type:</strong></dt><dd>'.$post->post_type.'</dd><dt><strong>Submitted By:</strong></dt><dd>'.get_the_author_meta( 'display_name', $post->post_author ).'</dd><dt><strong>Saved At:</strong></dt><dd>'.$post->post_date.'</dd><dt><strong>Review Link</strong></dt><dd><a href="http://theninthworld.com/wp-admin/post.php?post='.$post->ID.'&action=edit">http://theninthworld.com/wp-admin/post.php?post='.$post->ID.'&action=edit</a></dd></dl>' );
    remove_filter( 'wp_mail_content_type', 'set_html_content_type' );
 }
 add_action( 'new_to_draft', 'submission_alert' );
