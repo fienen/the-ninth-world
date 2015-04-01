@@ -34,6 +34,8 @@
 
     <div id="cta" class="row">
       <div class="large-12 columns align-center">
+        <a href="http://cyphercast.net/" title="CypherCast Network"><img src="/wp-content/uploads/2015/04/CypherCast_Network_Affiliate.png" alt="CypherCast Network" style="width:100%"></a>
+
         <h3>Read &bull; Vote &bull; Contribute &bull; Share</h3>
 
 <!-- div data-alert class="alert-box info radius">
