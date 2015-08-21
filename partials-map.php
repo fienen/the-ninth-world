@@ -13,19 +13,19 @@ var map_height = 2956;
 var city = new L.LayerGroup(), ruin = new L.LayerGroup(), town = new L.LayerGroup(), other = new L.LayerGroup();
 
 var townIcon = L.icon({
-    iconUrl: '/wp-content/themes/theninthworld/images/map/smallcity.png',
+    iconUrl: '<?php echo get_template_directory_uri(); ?>/images/map/smallcity.png',
     iconSize: [32, 37],
     popupAnchor: [0,-17]
 }), cityIcon = L.icon({
-    iconUrl: '/wp-content/themes/theninthworld/images/map/bigcity.png',
+    iconUrl: '<?php echo get_template_directory_uri(); ?>/images/map/bigcity.png',
     iconSize: [32, 37],
     popupAnchor: [0,-17]
 }), ruinIcon = L.icon({
-    iconUrl: '/wp-content/themes/theninthworld/images/map/ruin.png',
+    iconUrl: '<?php echo get_template_directory_uri(); ?>/images/map/ruin.png',
     iconSize: [32, 37],
     popupAnchor: [0,-17]
 }), otherIcon = L.icon({
-    iconUrl: '/wp-content/themes/theninthworld/images/map/other.png',
+    iconUrl: '<?php echo get_template_directory_uri(); ?>/images/map/other.png',
     iconSize: [32, 37],
     popupAnchor: [0,-17]
 });

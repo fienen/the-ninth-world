@@ -122,7 +122,7 @@
             </ul>
           </li>
 	  <li>
-	    <a href="http://ninthworldhub.com/">Forums</a>
+	    <a href="http://hub.cyphercast.net/categories/numenera">Forums</a>
 	  </li>
         </ul>
       </section>
