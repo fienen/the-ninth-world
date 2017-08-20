@@ -1,23 +1,16 @@
 {
-  "name": "WPGulp",
-  "description": "Gulp with WordPress. Start using Gulp with your WordPress plugins and themes.",
+  "name": "The Ninth World",
+  "description": "Base theme for The Ninth World gaming website",
   "main": "gulpfile.js",
   "authors": [
-    "ahmadawais <me@ahmadawais.com> (http://ahmadawais.com)"
+    "Michael Fienen <fienen@gmail.com> (https://fienen.com)"
   ],
   "license": "MIT",
-  "keywords": [
-    "WPGulp",
-    "wordpress",
-    "gulp",
-    "js",
-    "wp",
-    "gulp wp"
-  ],
-  "homepage": "https://github.com/ahmadawais/WPGulp",
+  "keywords": [],
+  "homepage": "http://theninthworld.com/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ahmadawais/WPGulp.git"
+    "url": "https://bitbucket.org/mfienen/the-ninth-world"
   },
   "ignore": [
     "**/.*",
