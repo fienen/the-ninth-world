@@ -1,11 +1,11 @@
 {
-  "name": "WPGulp",
-  "author": "ahmadawais",
-  "version": "1.0.3",
+  "name": "The Ninth World",
+  "author": "Michael Fienen",
+  "version": "3.0",
   "license": "GPL-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ahmadawais/WPGulp"
+    "url": "https://bitbucket.org/mfienen/the-ninth-world"
   },
   "dependencies": {},
   "devDependencies": {
