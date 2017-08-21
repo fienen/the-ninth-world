@@ -50,6 +50,7 @@ var styleDestination        = './'; // Path to place the compiled CSS file.
 // JS Vendor related.
 var jsVendorSRC             = [
                                 './node_modules/jquery/dist/jquery.js',
+                                './node_modules/foundation-sites/dist/foundation.js',
                                 './src/js/vendor/*.js',
                               ]; // Path to JS vendor folder.
 var jsVendorDestination     = './js/'; // Path to place the compiled JS vendors file.
@@ -158,7 +159,7 @@ gulp.task( 'browser-sync', function() {
 
 
 /**
- * Task: `styles`.
+ * Task: `css`.
  *
  * Compiles Sass, Autoprefixes it and Minifies CSS.
  *
