@@ -1,7 +1,7 @@
 {
-  "name": "The Ninth World",
+  "name": "TheNinthWorld",
   "author": "Michael Fienen",
-  "version": "3.0",
+  "version": "3.0.0",
   "license": "GPL-2.0",
   "repository": {
     "type": "git",
