@@ -43,10 +43,7 @@ var team                    = 'Michael Fienen <fienen@gmail.com>'; // Team's Ema
 var translatePath           = './languages' // Where to save the translation files.
 
 // Style related.
-var styleSRC                = [
-                                './node_modules/normalize.css/normalize.css',
-                                './src/scss/style.scss',
-                              ]; // Path to main .scss file.
+var styleSRC                = './src/scss/style.scss'; // Path to main .scss file.
 var styleDestination        = './'; // Path to place the compiled CSS file.
 // Default set to root folder.
 
@@ -100,7 +97,7 @@ var gulp         = require('gulp'); // Gulp of-course
 
 // CSS related plugins.
 var sass         = require('gulp-sass'); // Gulp pluign for Sass compilation.
-var minifycss    = require('gulp-uglifycss'); // Minifies CSS files.
+var cssnano      = require('gulp-cssnano'); // Minifies CSS files.
 var autoprefixer = require('gulp-autoprefixer'); // Autoprefixing magic.
 var mmq          = require('gulp-merge-media-queries'); // Combine matching media queries into one media query definition.
 
@@ -171,17 +168,14 @@ gulp.task( 'browser-sync', function() {
  *    6. Minifies the CSS file and generates style.min.css
  *    7. Injects CSS or reloads the browser via browserSync
  */
- gulp.task('styles', function () {
-    gulp.src( styleSRC )
-    .pipe( sourcemaps.init() )
-    .pipe( sass( {
+gulp.task('css', function () {
+    gulp.src(styleSRC)
+    .pipe(sourcemaps.init())
+    .pipe(sass({
       errLogToConsole: true,
       outputStyle: 'compact',
-      // outputStyle: 'compressed',
-      // outputStyle: 'nested',
-      // outputStyle: 'expanded',
-      precision: 10
-    } ) )
+      precision: 10,
+    }))
     .on('error', console.error.bind(console))
     .pipe( sourcemaps.write( { includeContent: false } ) )
     .pipe( sourcemaps.init( { loadMaps: true } ) )
@@ -197,17 +191,14 @@ gulp.task( 'browser-sync', function() {
     .pipe( browserSync.stream() ) // Reloads style.css if that is enqueued.
 
     .pipe( rename( { suffix: '.min' } ) )
-    .pipe( minifycss( {
-      maxLineLen: 10
-    }))
+    .pipe( cssnano() )
     .pipe( lineec() ) // Consistent Line Endings for non UNIX systems.
     .pipe( gulp.dest( styleDestination ) )
 
     .pipe( filter( '**/*.css' ) ) // Filtering stream to only css files
     .pipe( browserSync.stream() )// Reloads style.min.css if that is enqueued.
-    .pipe( notify( { message: 'TASK: "styles" Completed! 💯', onLast: true } ) )
+    .pipe( notify( { message: 'TASK: "css" Completed! 💯', onLast: true } ) )
  });
-
 
  /**
   * Task: `vendorJS`.
@@ -320,9 +311,9 @@ gulp.task( 'browser-sync', function() {
   *
   * Watches for file changes and runs specific tasks.
   */
- gulp.task( 'default', ['styles', 'vendorsJs', 'customJS', 'images', 'browser-sync'], function () {
+ gulp.task( 'default', ['css', 'vendorsJs', 'customJS', 'images', 'browser-sync'], function () {
   gulp.watch( projectPHPWatchFiles, reload ); // Reload on PHP file changes.
-  gulp.watch( styleWatchFiles, [ 'styles' ] ); // Reload on SCSS file changes.
+  gulp.watch( styleWatchFiles, [ 'css' ] ); // Reload on SCSS file changes.
   gulp.watch( vendorJSWatchFiles, [ 'vendorsJs', reload ] ); // Reload on vendorsJs file changes.
   gulp.watch( customJSWatchFiles, [ 'customJS', reload ] ); // Reload on customJS file changes.
  });
