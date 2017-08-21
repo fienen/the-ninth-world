@@ -48,7 +48,10 @@ var styleDestination        = './'; // Path to place the compiled CSS file.
 // Default set to root folder.
 
 // JS Vendor related.
-var jsVendorSRC             = './src/js/vendor/*.js'; // Path to JS vendor folder.
+var jsVendorSRC             = [
+                                './node_modules/jquery/dist/jquery.js',
+                                './src/js/vendor/*.js',
+                              ]; // Path to JS vendor folder.
 var jsVendorDestination     = './js/'; // Path to place the compiled JS vendors file.
 var jsVendorFile            = 'vendors'; // Compiled JS vendors file name.
 // Default set to vendors i.e. vendors.js.

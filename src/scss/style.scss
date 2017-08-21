@@ -14,9 +14,9 @@ Bitbucket Theme URI: https://bitbucket.org/mfienen/the-ninth-world
 @import "partials/mixins";
 @import "partials/variables";
 
-/* -- Normalize & Santize -------------------------------------------------- */
+/* -- Normalize & Utilities ------------------------------------------------ */
 @import "vendor/normalize";
-
-/* -- Structure ------------------------------------------------------------ */
-@import "partials/wpcore";
 @import "vendor/footable";
+@import "partials/wpcore";
+
+/* -- Theme ---------------------------------------------------------------- */
