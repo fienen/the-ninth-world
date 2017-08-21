@@ -43,7 +43,10 @@ var team                    = 'Michael Fienen <fienen@gmail.com>'; // Team's Ema
 var translatePath           = './languages' // Where to save the translation files.
 
 // Style related.
-var styleSRC                = './src/scss/style.scss'; // Path to main .scss file.
+var styleSRC                = [
+                                './node_modules/normalize.css/normalize.css',
+                                './src/scss/style.scss',
+                              ]; // Path to main .scss file.
 var styleDestination        = './'; // Path to place the compiled CSS file.
 // Default set to root folder.
 
@@ -83,7 +86,7 @@ const AUTOPREFIXER_BROWSERS = [
     'opera >= 23',
     'ios >= 7',
     'android >= 4',
-    'bb >= 10'
+    'bb >= 10',
   ];
 
 // STOP Editing Project Variables.
