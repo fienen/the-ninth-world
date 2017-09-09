@@ -45,7 +45,7 @@ class Rational_Meta_Box {
 		foreach ( $this->screens as $screen ) {
 			add_meta_box(
 				'advanced-options',
-				__( 'Advanced Options', 'rational-metabox' ),
+				__( 'Artifact Details', 'rational-metabox' ),
 				array( $this, 'add_meta_box_callback' ),
 				$screen,
 				'normal',
