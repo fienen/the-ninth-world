@@ -1,6 +1,7 @@
 <?php
 require_once('includes/data/post-types.php');
 require_once('includes/data/meta-boxes.php');
+require_once('includes/data/taxonomies.php');
 
 /*************************************
  Custom Shortcodes
