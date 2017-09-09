@@ -486,3 +486,57 @@ function tnw_cpt_publications() {
 	register_post_type( 'publications', $args );
 }
 add_action( 'init', 'tnw_cpt_publications', 0 );
+
+// Register Oddities Post Type
+function tnw_cpt_oddities() {
+	$labels = array(
+		'name'                  => _x( 'Oddities', 'Post Type General Name', 'the-ninth-world' ),
+		'singular_name'         => _x( 'Oddity', 'Post Type Singular Name', 'the-ninth-world' ),
+		'menu_name'             => __( 'Oddities', 'the-ninth-world' ),
+		'name_admin_bar'        => __( 'Oddity', 'the-ninth-world' ),
+		'archives'              => __( 'Oddity Archives', 'the-ninth-world' ),
+		'attributes'            => __( 'Oddity Attributes', 'the-ninth-world' ),
+		'parent_item_colon'     => __( 'Parent Oddity:', 'the-ninth-world' ),
+		'all_items'             => __( 'All Oddities', 'the-ninth-world' ),
+		'add_new_item'          => __( 'Add New Oddity', 'the-ninth-world' ),
+		'add_new'               => __( 'Add New Oddity', 'the-ninth-world' ),
+		'new_item'              => __( 'New Oddity', 'the-ninth-world' ),
+		'edit_item'             => __( 'Edit Oddity', 'the-ninth-world' ),
+		'update_item'           => __( 'Update Oddity', 'the-ninth-world' ),
+		'view_item'             => __( 'View Oddity', 'the-ninth-world' ),
+		'view_items'            => __( 'View Oddities', 'the-ninth-world' ),
+		'search_items'          => __( 'Search Oddity', 'the-ninth-world' ),
+		'not_found'             => __( 'Not found', 'the-ninth-world' ),
+		'not_found_in_trash'    => __( 'Not found in Trash', 'the-ninth-world' ),
+		'featured_image'        => __( 'Featured Image', 'the-ninth-world' ),
+		'set_featured_image'    => __( 'Set featured image', 'the-ninth-world' ),
+		'remove_featured_image' => __( 'Remove featured image', 'the-ninth-world' ),
+		'use_featured_image'    => __( 'Use as featured image', 'the-ninth-world' ),
+		'insert_into_item'      => __( 'Insert into Oddity', 'the-ninth-world' ),
+		'uploaded_to_this_item' => __( 'Uploaded to this Oddity', 'the-ninth-world' ),
+		'items_list'            => __( 'Oddities list', 'the-ninth-world' ),
+		'items_list_navigation' => __( 'Oddities list navigation', 'the-ninth-world' ),
+		'filter_items_list'     => __( 'Filter Oddities list', 'the-ninth-world' ),
+	);
+	$args = array(
+		'label'                 => __( 'Oddity', 'the-ninth-world' ),
+		'description'           => __( 'Oddity item types', 'the-ninth-world' ),
+		'labels'                => $labels,
+		'supports'              => array( 'title', 'editor', 'author', 'thumbnail', 'revisions', ),
+		'hierarchical'          => false,
+		'public'                => true,
+		'show_ui'               => true,
+		'show_in_menu'          => true,
+		'menu_position'         => 5,
+		'menu_icon'             => 'dashicons-editor-customchar',
+		'show_in_admin_bar'     => true,
+		'show_in_nav_menus'     => true,
+		'can_export'            => true,
+		'has_archive'           => true,
+		'exclude_from_search'   => false,
+		'publicly_queryable'    => true,
+		'capability_type'       => 'post',
+	);
+	register_post_type( 'oddities', $args );
+}
+add_action( 'init', 'tnw_cpt_oddities', 0 );
