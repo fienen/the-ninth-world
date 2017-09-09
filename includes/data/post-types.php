@@ -40,7 +40,7 @@ function tnw_cpt_artifacts() {
 		'show_ui'               => true,
 		'show_in_menu'          => true,
 		'menu_position'         => 5,
-		'menu_icon'             => 'dashicons-admin-appearance',
+		'menu_icon'             => 'dashicons-admin-network',
 		'show_in_admin_bar'     => true,
 		'show_in_nav_menus'     => true,
 		'can_export'            => true,
