@@ -377,7 +377,7 @@ class Descriptor_Meta_Box {
 		$output = '';
 		foreach ( $this->fields as $field ) {
 			$label = '<label for="' . $field['id'] . '">' . $field['label'] . '</label>';
-			$db_value = get_post_meta( $post->ID, 'descriptor_details_' . $field['id'], true );
+			$db_value = get_post_meta( $post->ID, $field['id'], true );
 			switch ( $field['type'] ) {
 				case 'textarea':
 					$input = sprintf(
@@ -436,9 +436,9 @@ class Descriptor_Meta_Box {
 						$_POST[ $field['id'] ] = sanitize_text_field( $_POST[ $field['id'] ] );
 						break;
 				}
-				update_post_meta( $post_id, 'descriptor_details_' . $field['id'], $_POST[ $field['id'] ] );
+				update_post_meta( $post_id, $field['id'], $_POST[ $field['id'] ] );
 			} else if ( $field['type'] === 'checkbox' ) {
-				update_post_meta( $post_id, 'descriptor_details_' . $field['id'], '0' );
+				update_post_meta( $post_id, $field['id'], '0' );
 			}
 		}
 	}
