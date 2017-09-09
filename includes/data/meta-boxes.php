@@ -44,7 +44,7 @@ class Rational_Meta_Box {
 	public function add_meta_boxes() {
 		foreach ( $this->screens as $screen ) {
 			add_meta_box(
-				'advanced-options',
+				'artifact-details',
 				__( 'Artifact Details', 'the-ninth-world' ),
 				array( $this, 'add_meta_box_callback' ),
 				$screen,
@@ -60,7 +60,7 @@ class Rational_Meta_Box {
 	 * @param object $post WordPress post object
 	 */
 	public function add_meta_box_callback( $post ) {
-		wp_nonce_field( 'advanced_options_data', 'advanced_options_nonce' );
+		wp_nonce_field( 'artifact_details_data', 'artifact_details_nonce' );
 		$this->generate_fields( $post );
 	}
 
@@ -110,11 +110,11 @@ class Rational_Meta_Box {
 	 * Hooks into WordPress' save_post function
 	 */
 	public function save_post( $post_id ) {
-		if ( ! isset( $_POST['advanced_options_nonce'] ) )
+		if ( ! isset( $_POST['artifact_details_nonce'] ) )
 			return $post_id;
 
-		$nonce = $_POST['advanced_options_nonce'];
-		if ( !wp_verify_nonce( $nonce, 'advanced_options_data' ) )
+		$nonce = $_POST['artifact_details_nonce'];
+		if ( !wp_verify_nonce( $nonce, 'artifact_details_data' ) )
 			return $post_id;
 
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
@@ -225,7 +225,7 @@ class Rational_Meta_Box {
 		$output = '';
 		foreach ( $this->fields as $field ) {
 			$label = '<label for="' . $field['id'] . '">' . $field['label'] . '</label>';
-			$db_value = get_post_meta( $post->ID, 'cypher_details_' . $field['id'], true );
+			$db_value = get_post_meta( $post->ID, $field['id'], true );
 			switch ( $field['type'] ) {
 				case 'select':
 					$input = sprintf(
@@ -301,9 +301,9 @@ class Rational_Meta_Box {
 						$_POST[ $field['id'] ] = sanitize_text_field( $_POST[ $field['id'] ] );
 						break;
 				}
-				update_post_meta( $post_id, 'cypher_details_' . $field['id'], $_POST[ $field['id'] ] );
+				update_post_meta( $post_id, $field['id'], $_POST[ $field['id'] ] );
 			} else if ( $field['type'] === 'checkbox' ) {
-				update_post_meta( $post_id, 'cypher_details_' . $field['id'], '0' );
+				update_post_meta( $post_id, $field['id'], '0' );
 			}
 		}
 	}
