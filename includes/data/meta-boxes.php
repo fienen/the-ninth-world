@@ -324,8 +324,8 @@ class Descriptor_Meta_Box {
 			'type' => 'textarea',
 		),
 		array(
-			'id' => 'initial-links',
-			'label' => 'Intiial Links to Starting Adventure',
+			'id' => 'initial_links',
+			'label' => 'Initial Links to Starting Adventure',
 			'type' => 'textarea',
 		),
 		array(
