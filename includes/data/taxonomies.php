@@ -1,3 +1,4 @@
+<?php
 // Register Custom Taxonomy
 function tnw_tax_encounters() {
 	$labels = array(
