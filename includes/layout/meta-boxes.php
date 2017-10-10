@@ -819,7 +819,7 @@ class Focus_Meta_Box {
 		array(
 			'id' => 'esoteries',
 			'label' => 'Esoteries',
-			'type' => 'textarea',
+			'type' => 'wysiwyg',
 		),
 		array(
 			'id' => 'minor_effect_suggestions',
@@ -839,32 +839,32 @@ class Focus_Meta_Box {
 		array(
 			'id' => 'tier_1',
 			'label' => 'Tier 1',
-			'type' => 'textarea',
+			'type' => 'wysiwyg',
 		),
 		array(
 			'id' => 'tier_2',
 			'label' => 'Tier 2',
-			'type' => 'textarea',
+			'type' => 'wysiwyg',
 		),
 		array(
 			'id' => 'tier_3',
 			'label' => 'Tier 3',
-			'type' => 'textarea',
+			'type' => 'wysiwyg',
 		),
 		array(
 			'id' => 'tier_4',
 			'label' => 'Tier 4',
-			'type' => 'textarea',
+			'type' => 'wysiwyg',
 		),
 		array(
 			'id' => 'tier_5',
 			'label' => 'Tier 5',
-			'type' => 'textarea',
+			'type' => 'wysiwyg',
 		),
 		array(
 			'id' => 'tier_6',
 			'label' => 'Tier 6',
-			'type' => 'textarea',
+			'type' => 'wysiwyg',
 		),
 	);
 
@@ -901,6 +901,14 @@ class Focus_Meta_Box {
 	public function add_meta_box_callback( $post ) {
 		wp_nonce_field( 'focus_details_data', 'focus_details_nonce' );
 		$this->generate_fields( $post );
+		foreach( $this->fields as $field ) {
+			switch( $field['type'] ) {
+				case 'wysiwyg':
+					$wysiwyg_content = get_post_meta( $post->ID, $field['id'], true );
+					wp_editor( $wysiwyg_content, $field['id'], array( 'media_buttons' => false ) );
+					break;
+			}
+		}
 	}
 
 	/**
@@ -915,6 +923,14 @@ class Focus_Meta_Box {
 				case 'textarea':
 					$input = sprintf(
 						'<textarea class="large-text" id="%s" name="%s" rows="5">%s</textarea>',
+						$field['id'],
+						$field['id'],
+						$db_value
+					);
+					break;
+				case 'wysiwyg':
+					$input = sprintf(
+						'<textarea id="%s" name="%s">%s</textarea>',
 						$field['id'],
 						$field['id'],
 						$db_value
@@ -977,60 +993,3 @@ class Focus_Meta_Box {
 	}
 }
 new Focus_Meta_Box;
-/*
-function tnw_wysiwyg_foci($post) {
-	$my_meta_content = get_post_meta($post->ID, '_mymeta', TRUE);
-	if (!$my_meta_content) $my_meta_content = '';
-	wp_nonce_field('foci'.$post->ID, 'my_meta_noncename');
-	wp_editor($my_meta_content, 'my_meta', array('textarea_rows' => '5'));
-}
-*/
-
-function tnw_metabox_locations( $meta_boxes ) {
-	$prefix = '';
-
-	$meta_boxes[] = array(
-		'id' => 'location-details',
-		'title' => esc_html__( 'Location Details', 'the-ninth-world' ),
-		'post_types' => array( 'locations' ),
-		'context' => 'normal',
-		'priority' => 'high',
-		'autosave' => false,
-		'fields' => array(
-			array(
-				'id' => $prefix . 'rulers',
-				'type' => 'text',
-				'name' => esc_html__( 'Ruler(s)', 'the-ninth-world' ),
-			),
-			array(
-				'id' => $prefix . 'population',
-				'type' => 'text',
-				'name' => esc_html__( 'Population', 'the-ninth-world' ),
-			),
-			array(
-				'id' => $prefix . 'capital',
-				'type' => 'text',
-				'name' => esc_html__( 'Capital', 'the-ninth-world' ),
-			),
-			array(
-				'id' => $prefix . 'region',
-				'name' => esc_html__( 'Region', 'the-ninth-world' ),
-				'type' => 'select',
-				'placeholder' => esc_html__( 'Select an Item', 'the-ninth-world' ),
-				'options' => array(
-					'The Beyond' => 'The Beyond',
-					'The Steadfast' => 'The Steadfast',
-					'Other' => 'Other',
-				),
-			),
-			array(
-				'id' => $prefix . 'hearsay',
-				'name' => esc_html__( 'Location Hearsay', 'the-ninth-world' ),
-				'type' => 'wysiwyg',
-			),
-		),
-	);
-
-	return $meta_boxes;
-}
-add_filter( 'rwmb_meta_boxes', 'tnw_metabox_locations' );
