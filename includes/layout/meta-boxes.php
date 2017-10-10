@@ -800,3 +800,237 @@ class Equipment_Meta_Box {
 	}
 }
 new Equipment_Meta_Box;
+
+class Focus_Meta_Box {
+	private $screens = array(
+		'foci',
+	);
+	private $fields = array(
+		array(
+			'id' => 'connection',
+			'label' => 'Connection',
+			'type' => 'textarea',
+		),
+		array(
+			'id' => 'additional_equipment',
+			'label' => 'Additional Equipment',
+			'type' => 'textarea',
+		),
+		array(
+			'id' => 'esoteries',
+			'label' => 'Esoteries',
+			'type' => 'textarea',
+		),
+		array(
+			'id' => 'minor_effect_suggestions',
+			'label' => 'Minor Effect Suggestions',
+			'type' => 'text',
+		),
+		array(
+			'id' => 'major_effect_suggestions',
+			'label' => 'Major Effect Suggestions',
+			'type' => 'text',
+		),
+		array(
+			'id' => 'gm_intrusion',
+			'label' => 'GM Intrusion',
+			'type' => 'text',
+		),
+		array(
+			'id' => 'tier_1',
+			'label' => 'Tier 1',
+			'type' => 'textarea',
+		),
+		array(
+			'id' => 'tier_2',
+			'label' => 'Tier 2',
+			'type' => 'textarea',
+		),
+		array(
+			'id' => 'tier_3',
+			'label' => 'Tier 3',
+			'type' => 'textarea',
+		),
+		array(
+			'id' => 'tier_4',
+			'label' => 'Tier 4',
+			'type' => 'textarea',
+		),
+		array(
+			'id' => 'tier_5',
+			'label' => 'Tier 5',
+			'type' => 'textarea',
+		),
+		array(
+			'id' => 'tier_6',
+			'label' => 'Tier 6',
+			'type' => 'textarea',
+		),
+	);
+
+	/**
+	 * Class construct method. Adds actions to their respective WordPress hooks.
+	 */
+	public function __construct() {
+		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
+		add_action( 'save_post', array( $this, 'save_post' ) );
+	}
+
+	/**
+	 * Hooks into WordPress' add_meta_boxes function.
+	 * Goes through screens (post types) and adds the meta box.
+	 */
+	public function add_meta_boxes() {
+		foreach ( $this->screens as $screen ) {
+			add_meta_box(
+				'focus-details',
+				__( 'Focus Details', 'the-ninth-world' ),
+				array( $this, 'add_meta_box_callback' ),
+				$screen,
+				'normal',
+				'high'
+			);
+		}
+	}
+
+	/**
+	 * Generates the HTML for the meta box
+	 *
+	 * @param object $post WordPress post object
+	 */
+	public function add_meta_box_callback( $post ) {
+		wp_nonce_field( 'focus_details_data', 'focus_details_nonce' );
+		$this->generate_fields( $post );
+	}
+
+	/**
+	 * Generates the field's HTML for the meta box.
+	 */
+	public function generate_fields( $post ) {
+		$output = '';
+		foreach ( $this->fields as $field ) {
+			$label = '<label for="' . $field['id'] . '">' . $field['label'] . '</label>';
+			$db_value = get_post_meta( $post->ID, $field['id'], true );
+			switch ( $field['type'] ) {
+				case 'textarea':
+					$input = sprintf(
+						'<textarea class="large-text" id="%s" name="%s" rows="5">%s</textarea>',
+						$field['id'],
+						$field['id'],
+						$db_value
+					);
+					break;
+				default:
+					$input = sprintf(
+						'<input %s id="%s" name="%s" type="%s" value="%s">',
+						$field['type'] !== 'color' ? 'class="regular-text"' : '',
+						$field['id'],
+						$field['id'],
+						$field['type'],
+						$db_value
+					);
+			}
+			$output .= $this->row_format( $label, $input );
+		}
+		echo '<table class="form-table"><tbody>' . $output . '</tbody></table>';
+	}
+
+	/**
+	 * Generates the HTML for table rows.
+	 */
+	public function row_format( $label, $input ) {
+		return sprintf(
+			'<tr><th scope="row">%s</th><td>%s</td></tr>',
+			$label,
+			$input
+		);
+	}
+	/**
+	 * Hooks into WordPress' save_post function
+	 */
+	public function save_post( $post_id ) {
+		if ( ! isset( $_POST['focus_details_nonce'] ) )
+			return $post_id;
+
+		$nonce = $_POST['focus_details_nonce'];
+		if ( !wp_verify_nonce( $nonce, 'focus_details_data' ) )
+			return $post_id;
+
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
+			return $post_id;
+
+		foreach ( $this->fields as $field ) {
+			if ( isset( $_POST[ $field['id'] ] ) ) {
+				switch ( $field['type'] ) {
+					case 'email':
+						$_POST[ $field['id'] ] = sanitize_email( $_POST[ $field['id'] ] );
+						break;
+					case 'text':
+						$_POST[ $field['id'] ] = sanitize_text_field( $_POST[ $field['id'] ] );
+						break;
+				}
+				update_post_meta( $post_id, $field['id'], $_POST[ $field['id'] ] );
+			} else if ( $field['type'] === 'checkbox' ) {
+				update_post_meta( $post_id, $field['id'], '0' );
+			}
+		}
+	}
+}
+new Focus_Meta_Box;
+/*
+function tnw_wysiwyg_foci($post) {
+	$my_meta_content = get_post_meta($post->ID, '_mymeta', TRUE);
+	if (!$my_meta_content) $my_meta_content = '';
+	wp_nonce_field('foci'.$post->ID, 'my_meta_noncename');
+	wp_editor($my_meta_content, 'my_meta', array('textarea_rows' => '5'));
+}
+*/
+
+function tnw_metabox_locations( $meta_boxes ) {
+	$prefix = '';
+
+	$meta_boxes[] = array(
+		'id' => 'location-details',
+		'title' => esc_html__( 'Location Details', 'the-ninth-world' ),
+		'post_types' => array( 'locations' ),
+		'context' => 'normal',
+		'priority' => 'high',
+		'autosave' => false,
+		'fields' => array(
+			array(
+				'id' => $prefix . 'rulers',
+				'type' => 'text',
+				'name' => esc_html__( 'Ruler(s)', 'the-ninth-world' ),
+			),
+			array(
+				'id' => $prefix . 'population',
+				'type' => 'text',
+				'name' => esc_html__( 'Population', 'the-ninth-world' ),
+			),
+			array(
+				'id' => $prefix . 'capital',
+				'type' => 'text',
+				'name' => esc_html__( 'Capital', 'the-ninth-world' ),
+			),
+			array(
+				'id' => $prefix . 'region',
+				'name' => esc_html__( 'Region', 'the-ninth-world' ),
+				'type' => 'select',
+				'placeholder' => esc_html__( 'Select an Item', 'the-ninth-world' ),
+				'options' => array(
+					'The Beyond' => 'The Beyond',
+					'The Steadfast' => 'The Steadfast',
+					'Other' => 'Other',
+				),
+			),
+			array(
+				'id' => $prefix . 'hearsay',
+				'name' => esc_html__( 'Location Hearsay', 'the-ninth-world' ),
+				'type' => 'wysiwyg',
+			),
+		),
+	);
+
+	return $meta_boxes;
+}
+add_filter( 'rwmb_meta_boxes', 'tnw_metabox_locations' );

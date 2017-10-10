@@ -72,3 +72,40 @@ function tnw_tax_equipment() {
 	register_taxonomy( 'item-rarity', array( 'equipment' ), $args );
 }
 add_action( 'init', 'tnw_tax_equipment', 0 );
+
+// Register Custom Taxonomy for Locations (Location Type)
+function tnw_tax_locations() {
+	$labels = array(
+		'name'                       => _x( 'Location Types', 'Taxonomy General Name', 'the-ninth-world' ),
+		'singular_name'              => _x( 'Location Type', 'Taxonomy Singular Name', 'the-ninth-world' ),
+		'menu_name'                  => __( 'Taxonomy', 'the-ninth-world' ),
+		'all_items'                  => __( 'All Location Types', 'the-ninth-world' ),
+		'parent_item'                => __( 'Parent Item', 'the-ninth-world' ),
+		'parent_item_colon'          => __( 'Parent Item:', 'the-ninth-world' ),
+		'new_item_name'              => __( 'New Item Name', 'the-ninth-world' ),
+		'add_new_item'               => __( 'Add New Item', 'the-ninth-world' ),
+		'edit_item'                  => __( 'Edit Item', 'the-ninth-world' ),
+		'update_item'                => __( 'Update Item', 'the-ninth-world' ),
+		'view_item'                  => __( 'View Item', 'the-ninth-world' ),
+		'separate_items_with_commas' => __( 'Separate location types with commas', 'the-ninth-world' ),
+		'add_or_remove_items'        => __( 'Add or remove location types', 'the-ninth-world' ),
+		'choose_from_most_used'      => __( 'Choose from the most used', 'the-ninth-world' ),
+		'popular_items'              => __( 'Popular Location Types', 'the-ninth-world' ),
+		'search_items'               => __( 'Search Location Types', 'the-ninth-world' ),
+		'not_found'                  => __( 'Not Found', 'the-ninth-world' ),
+		'no_terms'                   => __( 'No Location Types', 'the-ninth-world' ),
+		'items_list'                 => __( 'Location Types list', 'the-ninth-world' ),
+		'items_list_navigation'      => __( 'Location Types list navigation', 'the-ninth-world' ),
+	);
+	$args = array(
+		'labels'                     => $labels,
+		'hierarchical'               => true,
+		'public'                     => true,
+		'show_ui'                    => true,
+		'show_admin_column'          => true,
+		'show_in_nav_menus'          => true,
+		'show_tagcloud'              => false,
+	);
+	register_taxonomy( 'location_type', array( 'locations' ), $args );
+}
+add_action( 'init', 'tnw_tax_locations', 0 );
