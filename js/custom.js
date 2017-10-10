@@ -1,9 +1,9 @@
-jQuery(document).ready(function () {
+$(document).ready(function () {
   // Make Foundation foundate
   $(document).foundation();
 
   // Formatting help for definition lists
-  jQuery('.detail-list dt').each(function () {
-    jQuery(this).next('dd').css('min-height', jQuery(this).height());
+  $('.detail-list dt').each(function () {
+    $(this).next('dd').css('min-height', $(this).height());
   });
 });
