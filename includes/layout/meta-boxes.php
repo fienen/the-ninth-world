@@ -901,14 +901,6 @@ class Focus_Meta_Box {
 	public function add_meta_box_callback( $post ) {
 		wp_nonce_field( 'focus_details_data', 'focus_details_nonce' );
 		$this->generate_fields( $post );
-		foreach( $this->fields as $field ) {
-			switch( $field['type'] ) {
-				case 'wysiwyg':
-					$wysiwyg_content = get_post_meta( $post->ID, $field['id'], true );
-					wp_editor( $wysiwyg_content, $field['id'], array( 'media_buttons' => false ) );
-					break;
-			}
-		}
 	}
 
 	/**
@@ -929,12 +921,9 @@ class Focus_Meta_Box {
 					);
 					break;
 				case 'wysiwyg':
-					$input = sprintf(
-						'<textarea id="%s" name="%s">%s</textarea>',
-						$field['id'],
-						$field['id'],
-						$db_value
-					);
+					ob_start();
+					wp_editor( $db_value, $field['id'], array( 'media_buttons' => false ) );
+					$input = ob_get_clean();
 					break;
 				default:
 					$input = sprintf(
