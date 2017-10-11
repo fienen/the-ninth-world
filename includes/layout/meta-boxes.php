@@ -20,7 +20,7 @@ class Artifact_Meta_Box {
 		array(
 			'id' => 'effect',
 			'label' => 'Effect',
-			'type' => 'textarea',
+			'type' => 'wysiwyg',
 		),
 		array(
 			'id' => 'depletion',
@@ -80,6 +80,11 @@ class Artifact_Meta_Box {
 						$field['id'],
 						$db_value
 					);
+					break;
+				case 'wysiwyg':
+					ob_start();
+					wp_editor( $db_value, $field['id'], array( 'media_buttons' => false ) );
+					$input = ob_get_clean();
 					break;
 				default:
 					$input = sprintf(
@@ -176,7 +181,7 @@ class Cypher_Meta_Box {
 		array(
 			'id' => 'effect',
 			'label' => 'Effect',
-			'type' => 'textarea',
+			'type' => 'wysiwyg',
 		),
 	);
 
@@ -249,6 +254,11 @@ class Cypher_Meta_Box {
 						$db_value
 					);
 					break;
+				case 'wysiwyg':
+					ob_start();
+					wp_editor( $db_value, $field['id'], array( 'media_buttons' => false ) );
+					$input = ob_get_clean();
+					break;
 				default:
 					$input = sprintf(
 						'<input %s id="%s" name="%s" type="%s" value="%s">',
@@ -315,17 +325,17 @@ class Descriptor_Meta_Box {
 		array(
 			'id' => 'benefits',
 			'label' => 'Benefits and Inabilities',
-			'type' => 'textarea',
+			'type' => 'wysiwyg',
 		),
 		array(
 			'id' => 'initial_links',
 			'label' => 'Initial Links to Starting Adventure',
-			'type' => 'textarea',
+			'type' => 'wysiwyg',
 		),
 		array(
 			'id' => 'notes',
 			'label' => 'Notes',
-			'type' => 'textarea',
+			'type' => 'wysiwyg',
 		),
 	);
 
@@ -373,13 +383,10 @@ class Descriptor_Meta_Box {
 			$label = '<label for="' . $field['id'] . '">' . $field['label'] . '</label>';
 			$db_value = get_post_meta( $post->ID, $field['id'], true );
 			switch ( $field['type'] ) {
-				case 'textarea':
-					$input = sprintf(
-						'<textarea class="large-text" id="%s" name="%s" rows="5">%s</textarea>',
-						$field['id'],
-						$field['id'],
-						$db_value
-					);
+				case 'wysiwyg':
+					ob_start();
+					wp_editor( $db_value, $field['id'], array( 'media_buttons' => false ) );
+					$input = ob_get_clean();
 					break;
 				default:
 					$input = sprintf(
@@ -498,7 +505,7 @@ class Encounter_Meta_Box {
 		array(
 			'id' => 'combat',
 			'label' => 'Combat',
-			'type' => 'textarea',
+			'type' => 'wysiwyg',
 		),
 		array(
 			'id' => 'interaction',
@@ -523,7 +530,7 @@ class Encounter_Meta_Box {
 		array(
 			'id' => 'notes',
 			'label' => 'Notes',
-			'type' => 'textarea',
+			'type' => 'wysiwyg',
 		),
 	);
 
@@ -595,6 +602,11 @@ class Encounter_Meta_Box {
 						$field['id'],
 						$db_value
 					);
+					break;
+				case 'wysiwyg':
+					ob_start();
+					wp_editor( $db_value, $field['id'], array( 'media_buttons' => false ) );
+					$input = ob_get_clean();
 					break;
 				default:
 					$input = sprintf(
